@@ -1,0 +1,3 @@
+[submodule "funprojects"]
+	path = funprojects
+	url = https://github.com/nikhilc2710/funprojects.git

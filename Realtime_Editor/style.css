@@ -1,0 +1,20 @@
+
+#editor {
+    position: absolute;
+    float: left;
+  }
+#consoleop{
+  margin-left: 52%;
+  height: 50%;
+  position:fixed;
+  resize: none;
+}
+iframe{
+  overflow:hidden;
+
+}
+textarea{
+  background-color: black;
+  color: aliceblue;
+  resize: none;
+}

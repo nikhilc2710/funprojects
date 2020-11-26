@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+    <script src="https://raw.githack.com/brython-dev/brython/master/www/src/brython.js"></script>
+    <script src="https://raw.githack.com/brython-dev/brython/master/www/src/brython_stdlib.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.min.js" integrity="sha512-8qx1DL/2Wsrrij2TWX5UzvEaYOFVndR7BogdpOyF4ocMfnfkw28qt8ULkXD9Tef0bLvh3TpnSAljDC7uyniEuQ==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/urljs/2.3.1/url.min.js"></script>
+    <script>
+        var config = {
+
+};
+firebase.initializeApp(config);
+var df=firebase.firestore()
+</script>
+    
+</head>
+
+<body onload="brython()">
+    
+    <button onclick="test()">Run </button>
+    <button onclick="cleardb()">Clear</button>
+    <button id='run' style="display: none;">Run</button><br>
+    <div id="editor" style="height: 750px; width: 770px;"></div>
+    <div id="consoleop" scrolling="no">
+			
+        <textarea id='console' cols="90" rows="26" scrolling="no"></textarea>
+        <button onclick="myfunction()">Clear console</button>
+        <iframe id="cx"src="https://brython.info/console.html" width="660" height="330" scrolling="no"></iframe>
+    </div>
+    
+    <script type="text/python">
+from browser import document as doc, window, alert, bind, html
+  
+import sys
+import time
+import binascii
+
+import tb as traceback
+import javascript
+doc['run'].bind('click',lambda *args:run())
+try:
+    editor = window.ace.edit("editor")
+    editor.setTheme("ace/theme/terminal")
+    editor.session.setMode("ace/mode/python")
+    editor.focus()
+
+    editor.setOptions({
+     'enableLiveAutocompletion': True,
+     'highlightActiveLine': False,
+     'highlightSelectedWord': True,
+     'fontSize': "14pt"
+    })
+except Exception as e:
+    print(e)
+    from browser import html
+    editor = html.TEXTAREA(rows=20, cols=70)
+    doc["editor"] <= editor
+    def get_value(): return editor.value
+    def set_value(x): editor.value = x
+    editor.getValue = get_value
+    editor.setValue = set_value
+    has_ace = False
+class cOutput:
+    encoding = 'utf-8'
+
+    def __init__(self):
+        self.cons = doc["console"]
+        self.buf = ''
+
+    def write(self, data):
+        self.buf += str(data)
+
+    def flush(self):
+        self.cons.value += self.buf
+        self.buf = ''
+
+    def __len__(self):
+        return len(self.buf)
+
+if "console" in doc:
+    cOut = cOutput()
+    sys.stdout = cOut
+    sys.stderr = cOut
+
+
+def to_str(xx):
+    return str(xx)
+output = ''
+
+def show_console(ev):
+    doc["console"].value = output
+    doc["console"].cols = 60
+def run(*args):
+    global output
+    doc["console"].value = ''
+    src = editor.getValue()
+
+
+    t0 = time.perf_counter()
+    try:
+        ns = {'__name__':'__main__'}
+        exec(src, ns)
+        state = 1
+    except Exception as exc:
+        traceback.print_exc(file=sys.stderr)
+        state = 0
+    sys.stdout.flush()
+    output = doc["console"].value
+
+    print('<completed in %6.2f ms>' % ((time.perf_counter() - t0) * 1000.0))
+    return state
+        </script>
+<script>
+    var editor = ace.edit("editor");
+    var editorId = Url.queryString("id") || "_";
+    var uid = Math.random().toString();
+    var db = firebase.database();
+    var editorValues = db.ref("editor_values");
+    var currentEditorValue = editorValues.child(editorId);
+    var openPageTimestamp = Date.now();
+    currentEditorValue.child("content").once("value", function (contentRef) {
+
+// Somebody changed the lang. Hey, we have to update it in our editor too!
+
+
+
+
+
+
+// Get the queue reference
+var queueRef = currentEditorValue.child("queue");
+
+// This boolean is going to be true only when the value is being set programmatically
+// We don't want to end with an infinite cycle, since ACE editor triggers the
+// `change` event on programmatic changes (which, in fact, is a good thing)
+var applyingDeltas = false;
+
+// When we change something in the editor, update the value in Firebase
+editor.on("change", function(e) {
+
+            
+    // In case the change is emitted by us, don't do anything
+    // (see below, this boolean becomes `true` when we receive data from Firebase)
+    if (applyingDeltas) {
+        return;
+    }
+
+    // Set the content in the editor object
+    // This is being used for new users, not for already-joined users.
+    currentEditorValue.update({
+        content: editor.getSession().getValue()
+    });
+
+    // Generate an id for the event in this format:
+    //  <timestamp>:<random>
+    // We use a random thingy just in case somebody is saving something EXACTLY
+    // in the same moment
+    queueRef.child(Date.now().toString() + ":" + Math.random().toString().slice(2)).set({
+        event: e,
+        by: uid
+    }).catch(function(e) {
+        console.error(e);
+    });
+});
+
+// Get the editor document object 
+var doc = editor.getSession().getDocument();
+
+// Listen for updates in the queue
+queueRef.on("child_added", function (ref) {
+
+    // Get the timestamp
+    var timestamp = ref.key.split(":")[0];
+
+    // Do not apply changes from the past
+    if (openPageTimestamp > timestamp) {
+        return;
+    }
+
+    // Get the snapshot value
+    var value = ref.val();
+    
+    // In case it's me who changed the value, I am
+    // not interested to see twice what I'm writing.
+    // So, if the update is made by me, it doesn't
+    // make sense to apply the update
+    if (value.by === uid) { return; }
+
+    // We're going to apply the changes by somebody else in our editor
+    //  1. We turn applyingDeltas on
+    applyingDeltas = true;
+    //  2. Update the editor value with the event data
+    doc.applyDeltas([value.event]);
+    //  3. Turn off the applyingDeltas
+    applyingDeltas = false;
+});
+
+// Get the current content
+var val = contentRef.val();
+
+// If the editor doesn't exist already....
+if (val === null) {
+    // ...we will initialize a new one. 
+    // ...with this content:
+    val = "/* Welcome to FireEdit! */";
+
+    // Here's where we set the initial content of the editor
+    editorValues.child(editorId).set({
+        lang: "python",
+        queue: {},
+        content: val
+    });
+}
+
+// We're going to update the content, so let's turn on applyingDeltas 
+applyingDeltas = true;
+
+// ...then set the value
+// -1 will move the cursor at the begining of the editor, preventing
+// selecting all the code in the editor (which is happening by default)
+editor.getSession().setValue(val, -1);
+
+// ...then set applyingDeltas to false
+applyingDeltas = false;
+
+// And finally, focus the editor!
+editor.focus();
+});
+</script>
+<script>
+    function test(){
+        let r = Math.random().toString(36).substring(7);
+        var df=firebase.firestore()
+        console.log(r)
+        df.collection("Code").doc("runsignal").set(
+            {value:r})
+        var x=document.getElementById("run");
+        x.click()
+    }
+</script>
+
+<script>
+    df.collection("Code").doc("runsignal")
+    .onSnapshot(function(doc) {
+        var x=document.getElementById("run");
+        x.click()
+    });
+</script>
+<script>
+    function cleardb(){
+        db=firebase.database()
+        var editorValues = db.ref("editor_values");
+        var currentEditorValue = editorValues.child('_');
+        var queueRef = currentEditorValue.child("queue");
+        queueRef.set({})
+
+    }
+</script>
+</body>
