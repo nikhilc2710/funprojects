@@ -17,7 +17,7 @@ def mailextractor(ref):
 
     
 
-l=["https://www.hotelcontactnumber.in/hotels-in-mumbai-2.html"]+[f"https://www.hotelcontactnumber.in/hotels-in-mumbai-2.html/pag={i}/" for i in range(2,6)]
+l=["somesecret"]+[f"some secret"]
 
 if __name__ == "__main__":
     with Pool(12) as p:
