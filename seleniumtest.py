@@ -31,6 +31,3 @@ with open('your_file.txt', 'w+') as f:
         else:
             f.write(f'{item}\n')
 driver.quit()
-
-# woodrange2@gmail.com
-# justpython@1
