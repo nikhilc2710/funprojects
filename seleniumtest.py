@@ -6,9 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 
 driver = webdriver.Chrome('./chromedriver_win32/chromedriver.exe')  # Optional argument, if not specified will search path.
-l=["https://www.hotelcontactnumber.in/hotels-in-mumbai-2.html"]
+l=["secretonlyiknow"]
 for i in range(2,6):
-    l+=[f"https://www.hotelcontactnumber.in/hotels-in-mumbai-2.html/pag={i}/"]
+    l+=[f"secretonlyiknows"]
 megalist=[]
 for xx in l:
     driver.get(xx)
