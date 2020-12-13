@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from itertools import chain
 from multiprocessing import Pool
 import sys
+import time
 def mailfinder(url):
     r=requests.get(url)
     soup = BeautifulSoup(r.text, 'lxml')
