@@ -1,0 +1,63 @@
+Dealing with strings things to consider
+check for both possibliblties upper and lower
+''.join(list) //no space
+' '.join(list)//add spaces bettwen character
+use replace wiseley it will replace all continous occurences 
+eg: zzaa.replace('z') => aa
+to remove only first character str[1::]
+Check any string is empty or not
+class Solution:
+    def detectCapitalUse(self, word: str) -> bool:
+        return True if word.isupper() or word.islower() or word.title()==word  else False
+isupper()=>Check string is uppercase
+title()=>capitalize first letter of word #hello => Hello
+istitle()=> return is title?
+re.findall('\\b'+keyword+'\\b',j,flags=re.IGNORECASE)=> find exact match of word by ignoring puncations and symbols and case
+try sorting string array leetcode.py longest commom prefix
+
+################Arrays##################
+check if it is possible to sort array (nlogn) one time sort things
+spilt even followed by odd a.sort(key=lambda x:x%2) #or any condition
+check if it is possible to get solution by using reverse() 
+check indexing of array(0,1)
+fearlessly use slicing value >len(arr) eg: a[1,2,3,4,5,6]==> a[5:8]==>[5,6]
+check for array is empty or not
+array may contain only single elemnt
+sort indexs based on elemnt or based on index
+x=sorted(range(len(a)), key=lambda k: a[k])#accesnding
+x=sorted(range(len(a)), key=lambda k: a[k])[::-1]#desecnding
+intervals_with_index=[[j,k,i] for i,[j,k] in enumerate(a)] => template for adding indexs to the nested list
+try to solve find last minimum and maximum of list [1,2,3,5,7,1,7] lastmin=5 lastmax=6#weiredalgo
+while sorting (lambda x:x[0],x[1]) if x[0] equals or fails x[1] will be considerd #IMO
+intervals.sort(key=lambda x:(x[0],-x[0]))
+[[1,2],[1,4],[3,4]] => [[1, 4], [1, 2], [3, 4]] #first index of output
+Remove Covered Intervals #leetcode
+###########Arithmetic##########
+lookout for 1 (1 is odd)
+check floating point is possible or not for answer
+#########Problem Approches#############
+ps: you can subratct any element from any index is it possible to make sum of array 0
+==>It is alwasy possible if sum of array>0 else not possible
+try thinking of counter when problem is counting pairs
+Try checking assecnding descinding is possible soln or not #cubesorting codeforces
+ Least Number of Unique Integers after K Removals ##remove element with minmum occurence first will return minium uniuq nubers
+if there asked count number of ways try (n-1)//2 is possible or not
+1624. Largest Substring Between Two Equal Characters
+IMP: postion of same character may not be equal abacd=> still valid aba
+Check solution is possible by gredily removing leading and trailing element of array #ps Yet Another Bookshelf codeforces
+Think input maybe not always ideal 
+while checking any arry or string is equal and in random order use Counter  faster than sort
+eg: Reverse Sublists to Convert to Target Binarysearch
+############Matrix###############
+Check its square or not
+EDGECASE:matrix can be empty or have single empty column
+###########TREE#################
+Check wether to add root or not 
+if count root:
+	stack=[(root,1)]
+else:
+	stack=[(root,0)] #problem like nodes between root and leaf 
+in BST check selecting root condition is right
+
+
+
