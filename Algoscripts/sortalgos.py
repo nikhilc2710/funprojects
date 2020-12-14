@@ -30,4 +30,4 @@ def msort(list):
     newlist = merge(newlist1, newlist2)
     print(newlist)
     return newlist
-print(msort([i for i in range(6)]))
+print(msort(list(range(6))))
