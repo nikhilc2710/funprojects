@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h2>CARS</h2>
+{{owner_info.name}}<br>
+{{owner_info.license}}
+{% for v in vechile_info %}
+<li>{{v.carname}} {{v.carType}}</li>
+{% endfor %}
+{% endblock %}
