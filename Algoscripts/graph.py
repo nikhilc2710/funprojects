@@ -1,16 +1,24 @@
-# def dfs_iterative(graph, start):
-#     stack, path = [start], []
+def dfs_iterative(graph, start):
+    stack, visited = [start], []
 
-#     while stack:
-#         vertex = stack.pop()
-#         if vertex in path:
-#             continue
-#         path.append(vertex)
-#         for neighbor in graph[vertex]:
-#             stack.append(neighbor)
+    while stack:
+        node = stack.pop()
+        if node in visited:
+            continue
+        visited.append(node)
+        for n in graph[node]:
+            stack.append(n)
 
-#     return path
+    return visited
 
 
-# adjacency_matrix = {1: [3], 2: [3],
-#                     3: [1,2]}
+
+graph={
+    "A":['B','C'],
+    "B":['D','E'],
+    "C":['F'],
+    "D":[],
+    "E":['F'],
+    "F":[]
+    }
+print(dfs_iterative(graph,'A'))
