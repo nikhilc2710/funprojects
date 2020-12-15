@@ -1,0 +1,13 @@
+<script>
+	(async () => {
+    const useFrameRate = 30;
+    const stream = await navigator.mediaDevices.getUserMedia({video: true});
+    const capture = new ImageCapture(stream.getVideoTracks()[0]);
+    const socket = new WebSocket('ws://localhost:5678');
+    const options = {imageWidth: 640, imageHeight: 480};
+    socket.addEventListener('open', () => {
+        const send = () => capture.takePhoto(options).then(blob => socket.send(blob)).catch(() => {});
+        const sendloop = setInterval(send ,1000/useFrameRate);
+    });
+ })();
+</script>
