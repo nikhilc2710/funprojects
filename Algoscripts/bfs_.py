@@ -1,25 +1,23 @@
 from collections import deque
-def BFS(graph,start,end):
+def BFS(graph,node):
     visited=set()
     q=deque()
-    q.append([start,[start]])
+    q.append(node)
     while q:
-        n,path=q.popleft()
-        visited.add(n)
+        n=q.popleft()
+        if n not in visited:
+            visited.add(n)
+            print(n,end=" ")
+
         for i in graph[n]:
-            if i == end:
-                return path+[end]
-            else:
-                if i not in visited:
-                    visited.add(i)
-                    q.append(i)
+            q.append(i)
 
 graph={
-    'A' : ['B','C','D'],
+    'A' : ['B','C'],
   'B' : ['D', 'E'],
   'C' : ['F'],
-  'D' : ['A'],
+  'D' : [],
   'E' : ['F'],
   'F' : []
 }
-print(BFS(graph,'A','D'))
+BFS(graph,'F')
