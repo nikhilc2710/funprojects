@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+    <style>
+        
+        table, th, td,tr {
+          border: 1px solid black;
+        }
+        </style>
+        <h1>Your Pending Corse</h1>
+        <div id="hide" style="display: none;">
+            <table  >
+                <tr><th>course Status</th>
+                     <th>course Domain</th>
+                     <th>course provider</th>
+                     <th>Course certificate</th>
+                    </tr>
+                    <tr> 
+                        <td>
+                            <select name="cars" id="cars">
+                                <option value="Completed">Registerd </option>
+                                <option value="Registerd">Completed</option>
+            
+                              </select>
+                              <td><input placeholder="EX: Python,Kubernets" value="Kubernets"></td>
+                              <td><input placeholder="EX: Courseera,Udemy" value="Course era"></td>
+           
+                     <td><input type="file">
+                     <td><Button>save</Button></td>
+                 </tr>
+                 </table>    
+                </div>
+        <h1>Your Completed Courses
+        <button>Download All</button>
+    <table>
+        <tr><th>course Status</th>
+             <th>course Domain</th>
+             <th>course provider</th>
+             <th>Course certificate</th>
+            </tr>
+            {% for data in user_image %}
+            <tr> 
+                <td>
+                    <select name="cars" id="cars">
+                        <option value="Completed">Completed</option>
+                        <option value="Registerd">Registerd</option>
+
+                      </select>
+                      <td><input placeholder="EX: Python,Kubernets"></td>
+                      <td><input placeholder="EX: Courseera,Udemy"></td>
+         
+             <td><img src="{{data}}" width="200" height="200"></td>
+             <td><Button>save</Button></td>
+         </tr>
+             {% endfor %}
+         </table>
+<h1> Add Course</h1>
+<table>
+    <tr><th>course Status</th>
+         <th>course Domain</th>
+         <th>course provider</th>
+         <th>Course certificate</th>
+        </tr>
+        <tr> 
+            <td>
+                <select name="cars" id="cars">
+                    <option value="Completed">Registerd </option>
+                    <option value="Registerd">Completed</option>
+
+                  </select>
+                  <td><input placeholder="EX: Python,Kubernets"></td>
+                  <td><input placeholder="EX: Courseera,Udemy"></td>
+
+         <td><input type="file">
+         <td><Button onclick="myFunction()">save</Button></td>
+     </tr>
+     </table>
+     <script>
+         function myFunction() {
+  var x = document.getElementById("hide");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+     </script>
+
+</body>
+</html>
