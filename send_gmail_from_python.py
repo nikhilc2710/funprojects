@@ -28,6 +28,22 @@ def create_message(sender, to, subject, message_text):
   message['to'] = to
   message['from'] = sender
   message['subject'] = subject
+  #Sending Image/HTML##############################################################
+  html = f"""\
+    <p>This is an inline image<br/>
+        <img src="cid:image1">
+        {time.asctime()}
+    </p>
+  """
+  msgHtml = MIMEText(html, 'html')
+  with open('test.png','rb') as f:
+      x=f.read()
+  msgImg = MIMEImage(x, 'png')
+  msgImg.add_header('Content-ID', '<image1>')
+  msgImg.add_header('Content-Disposition', 'inline', filename='test.png')
+  message.attach(msgHtml)
+  message.attach(msgImg)
+  ##############################################################################
   return {'raw': base64.urlsafe_b64encode(message.as_string().encode()).decode()}
 
 def send_message(service, user_id, message):
