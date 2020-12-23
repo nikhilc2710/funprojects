@@ -90,8 +90,8 @@ def main():
             pickle.dump(creds, token)
 
     service = build('gmail', 'v1', credentials=creds)
-    created_msg=create_message('nikhilchauhan839@gmail.com','woodrange2@gmail.com','Test messaging','Hello this is testing message')
-    send_message(service,"nikhilchauhan839@gmail.com",created_msg)
+    created_msg=create_message('sender email','reciveremail','Test messaging','Hello this is testing message')
+    send_message(service,"me",created_msg)
     print(Fore.RED,created_msg)
     print(Style.RESET_ALL)
 
