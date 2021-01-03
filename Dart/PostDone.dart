@@ -42,8 +42,7 @@ class Respfromserver {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _uri = TextEditingController();
-  String x = "Nothing To show";
-  String y = "Try Entering Valid URL";
+w3
 
   Future<Respfromserver> result(String url) async {
     final http.Response response = await http.post(
