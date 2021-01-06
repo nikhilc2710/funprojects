@@ -2,8 +2,8 @@ import boto3
 
 client = boto3.client(
     'dynamodb',
-    aws_access_key_id="AKIAQ766K5FC3UGPILUB",
-    aws_secret_access_key="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",
+    aws_access_key_id="Secert",
+    aws_secret_access_key="Secret",
     region_name="us-east-1")
 
 
