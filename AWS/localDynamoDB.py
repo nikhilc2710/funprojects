@@ -2,8 +2,8 @@ import boto3
 
 client = boto3.client(
     'dynamodb',
-    aws_access_key_id="Secert",
-    aws_secret_access_key="Secret",
+    aws_access_key_id="secret",
+    aws_secret_access_key="secret".strip(),
     region_name="us-east-1")
 
 
@@ -37,6 +37,8 @@ def createTable():
                                        "WriteCapacityUnits": 5
                                    })
     return response
+# myTable=createTable()
+# print(myTable)
 fakedata={
             'artist': {'S':'Taylor'},
             'Song': {'S':'Deleicate'},
@@ -48,12 +50,39 @@ fakedata={
 
 def insertItem():
     table=client.put_item(TableName="Music",Item=fakedata)
-insertItem()
+# insertItem()
 
 def getItem():
     response=client.get_item(TableName="Music",Key={'artist':{'S':'Avril'},'Song':{'S':'HAW'}})
     print(response['Item'])
-getItem()
+# getItem()
 
-# myTable=createTable()
-# print(myTable)
+def updateItem():
+    response=client.update_item(TableName="Music",Key={
+            'artist': {'S':'Taylor'},
+            'Song': {'S':'Deleicate'}},
+            UpdateExpression="set info.plot=:p,info.rating=:r",
+             ExpressionAttributeValues={
+            ':r': {'N':'10'},
+            ':p': {'S':'updateTes'},
+        }
+            )
+#updateItem()
+
+def increaseItem():
+    response=client.update_item(TableName="Music",Key={
+        'artist': {'S':'Taylor'},
+        'Song': {'S':'Deleicate'}},
+        UpdateExpression="set info.rating =  info.rating + :val",
+            ExpressionAttributeValues={
+        ':val': {'N':'10'},
+    }
+        )
+# increaseItem()
+
+def delteItem():
+    response=client.delete_item(TableName="Music",Key={
+        'artist': {'S':'Taylor'},
+        'Song': {'S':'Deleicate'}},
+#         )
+# delteItem()
