@@ -30,5 +30,6 @@ import requests
 import json
 payload = {
 "url":'url'}
-res=requests.post('hosted or localhost',data=json.dumps(payload))
+res=requests.post('https://7s4rj3apid.execute-api.ap-southeast-1.amazonaws.com/test/resttest',data=json.dumps(payload))
 x=res.json()
+print(x)
