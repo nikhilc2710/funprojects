@@ -16,6 +16,14 @@ filename=ssm.get_parameter(Name="fileName")['Parameter']['Value']
 
 def jsonContent():
     expression="select * from s3object s"
+    #uncomment in lambda else comment
+    # if 'queryStringParameters' in event and event['queryStringParameters'] is not None:
+    #     if 'dragonName' (paramneter name passed in url parameter) in event['queryStringParameters']:
+    #         expression = "select * from S3Object[*][*] s where s.dragon_name_str =  '" + event["queryStringParameters"]['dragonName'] + "'"
+    #     if 'family' in event['queryStringParameters']:
+    #         expression = "select * from S3Object[*][*] s where s.family_str =  '" + event["queryStringParameters"]['family'] + "'"
+    #     if "locationcountry" in event['queryStringParameters']:
+    #         expression="select * from S3Object[*][*] s where s.location_country_str =  '" + event["queryStringParameters"]['locationcountry'] + "'"
 
     result=client.select_object_content(
         Bucket=bucketname,
