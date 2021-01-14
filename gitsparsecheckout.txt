@@ -1,0 +1,5 @@
+git init 
+git remote add origin -f https://github.com/pulumi/examples/ 
+git config core.sparseCheckout true 
+echo aws-ts-voting-app >> .git/info/sparse-checkout 
+git pull origin master
