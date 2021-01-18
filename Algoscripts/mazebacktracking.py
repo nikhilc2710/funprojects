@@ -9,7 +9,7 @@ def bfs(grid, start):
         path = queue.popleft()
         x, y = path
         if grid[y][x] == goal:
-            return True
+            return 1
         for x2, y2 in ((x+1,y), (x-1,y), (x,y+1), (x,y-1)):
             if ( 0 <= x2 < width and  #X-axis in range
                 0 <= y2 < height and  #y-axis
@@ -17,11 +17,8 @@ def bfs(grid, start):
                 (x2, y2) not in seen): #not visited
                 queue.append( (x2, y2))
                 seen.add((x2, y2))
+    return 0
 
 mat=[list(map(int,input().split())) for i in range(width)]
-ans=False
-if mat[0][0]==0:
-    ans=False
-else:
-    ans = bfs(mat, (0,0))
-print(1 if ans else 0)
+ans = 0 if mat[0][0]==0 else bfs(mat,(0,0))
+print(ans)
