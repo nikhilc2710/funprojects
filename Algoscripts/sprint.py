@@ -19,29 +19,38 @@ for i,j in enumerate(zip(a,b)):
     s+=''.join(map(str,j))
 # print(s)
 a=[35, -42, 23 ,-56, -84, 92, 39]
-a=[-11 ,-2 ,19 ,37 ,64 ,-18]
+# a=[-11 ,-2 ,19 ,37 ,64 ,-18]
 temp=[]
-k=3
+k=4
 
 ans=[]
+# for i in range(len(a)-k+1):
+#     temp.append(a[i:i+k])
+
+# for i in temp:
+#     Flag=True
+#     for j in i:
+#         if j<0:
+#             Flag=False
+#             i.append(Flag)
+#             break
+
+# for i in temp:
+#     if not i[-1]:
+#         for j in i:
+#             if j<0:
+#                 ans.append(j)
+#                 break
+#     else:
+#         ans.append(0)
+        
+# print(ans)
+########More clear ans straigtforward soln
 for i in range(len(a)-k+1):
-    temp.append(a[i:i+k])
-
-for i in temp:
-    Flag=True
-    for j in i:
-        if j<0:
-            Flag=False
-            i.append(Flag)
+    for x in a[i:i+k]:
+        if x<0:
+            ans.append(x)
             break
-
-for i in temp:
-    if not i[-1]:
-        for j in i:
-            if j<0:
-                ans.append(j)
-                break
     else:
         ans.append(0)
-        
 print(ans)
