@@ -89,14 +89,12 @@
 # n = len(arr) 
 # print(Print3Smallest(arr, n)) 
 from itertools import groupby
-arr=[101,317,332,62,1226,631,865,539,62,9,999,888,777]
-arr[0:3]=[max(arr[0:3])]
-print(arr)
 from math import log10
+arr=[101,317,332,62,1226,631,865,539,62,9,333,222,555,666,777,889,998]
 test=[int(log10(i))+1 for i in arr]
-px=lambda x: len(list(x))
-z=[]
-xx=0
-# print({k:list(v) for k,v in groupby(test)})
-for x,(k,v) in enumerate(groupby(test)):
-	print(x,(k,px(v)))
+xx=groupby(enumerate(test),lambda x:x[1])
+l = [ list(x[1]) for x in xx if x[0] == 3]
+for i in reversed(l):
+	left,right=i[0][0],i[-1][0]
+	arr[left:right+1]=[max(arr[left:right+1])]
+print(arr)
