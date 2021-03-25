@@ -7,4 +7,4 @@ x=[]
 for i in range(q):
     x.append(input().split())
 
-print(temp,x
+print(temp,x)
