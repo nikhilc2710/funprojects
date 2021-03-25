@@ -17,5 +17,5 @@ a='''3 3
 import subprocess
 
 child = subprocess.Popen(['python','program.py'], stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE, shell=False)
-a=child.communicate(a.encode(),timeout=7)
+a=child.communicate(a.strip().encode(),timeout=7)
 print(a)
