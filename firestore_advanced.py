@@ -36,14 +36,19 @@ transaction = d.transaction()
 # city_ref = db.collection(u'cities').document(u'SF')
 
 @firestore.transactional
-def update_in_transaction(transaction,docs):
-    for i in docs:
-        ref=d.collection(u'testing').document(i)
+def update_in_transaction(transaction,document):
+    # for i in docs:
+    ref=d.collection(u'testing').document(document)
+    if ref.get().exists:
         snapshot = ref.get(transaction=transaction)
-        currval=snapshot.get(u'quantity')+10
-        print(currval)
-update_in_transaction(transaction,['big8','chichkenpizza'])
-
+        transaction.update(ref,{u'quantity':snapshot.get(u'quantity')+10})
+        return
+    else:
+        d.collection(u'testing').document(i).set({'quantity':1,'cost':50},merge=True)
+        return
+# update_in_transaction(transaction,['big8','chichkenpizza','Chichen Tripple Rice'])
+for i in ['big8','chichkenpizza','Chichen Tripple Rice','big8','chicken chilli']:
+    update_in_transaction(transaction,i)
 
 # result = update_in_transaction(transaction, city_ref)
 # if result:
