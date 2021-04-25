@@ -1,0 +1,6 @@
+firebase-admin
+pyzbar
+Flask
+flask-cors
+requests
+Pillow
