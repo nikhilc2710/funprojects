@@ -1,0 +1,25 @@
+<meta charset="UTF-8">
+  <div class="login-container">
+    <div class="login-content">
+      <mat-toolbar class="login-toolbar" color="primary"> Admin Login</mat-toolbar>
+      <mat-card>
+        <form  novalidate >
+          <mat-form-field>
+            <mat-icon matPrefix>person_outline</mat-icon>
+            <input autofocus type="text" matInput placeholder="Username"  [formControl]="username">
+          </mat-form-field>
+  <br>
+          <mat-form-field>
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <input type="password" autocomplete="false" matInput placeholder="Password"  [formControl]="Password ">
+          </mat-form-field>
+  <br>
+  <div id="lol" style="display: none;"> <p class="text-wrapper login-toolbar" style="color:#DB4437;   max-width: 100%">LOL You Need Correct User ID and  Password!!!</p><h2 class="text-wrapper login-toolbar" style="color:#DB4437;   max-width: 100%"> FBI AUTH IN PLACE  😎 </h2>
+  </div>
+    <button (click)="login_handler()" mat-raised-button color="primary">Login</button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  
+  

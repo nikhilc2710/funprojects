@@ -1,0 +1,11 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  span{
+      padding-right: 1rem;
+  }
+  /* .mat-tab-header{
+    z-index: 999;
+    width:100vw;
+    position: fixed  !important;
+} */

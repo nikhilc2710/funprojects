@@ -1,0 +1,26 @@
+<mat-tab-group mat-stretch-tabs>
+
+    <mat-tab label="Contacted User" style="min-width: auto;">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="  Enter name or email">
+        <mat-card style="border-radius: 10px; margin-left: 5%; margin-top: 1%; margin-right: 5%;">
+            <div fxLayout="row wrap"  fxLayoutGap="10px  ">
+                <div  *ngFor="let user of rejectsx |filter:searchText ; let i=index">
+                  
+                        <mat-card class="example-card" fxFlex style="background-color: blanchedalmond;">
+                            <h2>{{user.email}} </h2>
+                            <h3>Requested Date: {{user.dateandtime}} </h3>
+                            <h3>Name: {{user.name}} </h3>
+                            <h3>persons: {{user.persons}} </h3>
+                            <p>Special User Request : {{user.special}}</p>
+                            <div  fxLayout="row" fxLayoutAlign="center center">
+                                <button mat-raised-button color="primary" (click)="removeCard(i)" >Resolve Issue</button>
+                        </div>
+                        </mat-card>
+
+                
+                    </div>
+                </div>
+           
+        </mat-card> 
+    </mat-tab>
+</mat-tab-group>
